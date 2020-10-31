@@ -145,6 +145,17 @@ fi
 
 if [ $webserver == "Nginx" ]
 then
-	echo "nginx"
-
+	sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $domainname.key -out $domainname.crt -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname"
+	sudo cp $domainname.crt /etc/ssl/certs/$domainname.crt
+	sudo cp $domainname.key /etc/ssl/private/$domainname.key
+	
+	perl -p -i -e 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+	perl -p -i -e 's/listen [::]:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
+	sed -i "24i server_name \\${domainname}" "/etc/nginx/sites-available/default"
+	sed -i "25i ssl_certificate /etc/ssl/certs/localhost.crt;" "/etc/nginx/sites-available/default"
+	sed -i "26i ssl_certificate_key /etc/ssl/private/localhost.key;" "/etc/nginx/sites-available/default"
+	sed -i "27i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
+	
+	sudo service nginx reload
+	sudo service nginx start
 fi
