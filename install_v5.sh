@@ -32,12 +32,12 @@ read -p $'1) Ja \n2) Nee \n' update
 while true
 do
   case $update in
-   [y/Y/yes/Yes] ) 
+   [y/Y/yes/Yes/1] ) 
 	   update=yes
 	   updatechoice=wel
 	   echo "$devide"
 	   break;;
-   [n/N/no/No] ) 
+   [n/N/no/No/2] ) 
            update=no
 	   updatechoice=niet
 	   echo "$devide"
