@@ -4,6 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 dirL=$DIR/dirCA
 dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
+ip="$(hostname -I)"
 
 read -p $'Welke webserver wilt u installeren? Apache or Nginx\n' webserver 
 
@@ -128,6 +129,7 @@ awk 'NR==35{$0="                SSLCACertificateFile /etc/ssl/certs/cert-ourca.c
 cp $dirL/temp.conf /etc/apache2/sites-available/default-ssl.conf
 rm -R $dirL/temp.conf
 
+sed -i "13i                Redirect '/' 'https://\\${ip}/'" "/etc/apache2/sites-available/000-default.conf"
 
 sudo a2enmod ssl
 sudo a2ensite default-ssl
