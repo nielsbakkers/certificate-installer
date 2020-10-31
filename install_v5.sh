@@ -11,12 +11,12 @@ read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n' webserve
 while true
 do
   case $webserver in
-   [a/A/Apache/apache/1]* ) #echo "You chose Apache"
+   [a/A/Apache/apache/1] ) #echo "You chose Apache"
 	   webserver=Apache
 	   webinstall=apache2
 	   echo "$devide"
 	   break;;
-   [n/N/Nginx/nginx/2]* ) #echo "You chose Nginx"
+   [n/N/Nginx/nginx/2] ) #echo "You chose Nginx"
 	   webserver=Nginx
 	   webinstall=nginx 
 	   echo "$devide"
