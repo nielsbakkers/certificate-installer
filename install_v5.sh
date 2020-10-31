@@ -6,6 +6,8 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
+echo "$devide"
+
 read -p $'Welke webserver wilt u installeren? Apache or Nginx\n' webserver 
 
 while true
