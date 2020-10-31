@@ -22,7 +22,7 @@ do
 	   echo "$devide"
            break;;
 
-   * )     echo "Kies een juiste waarde"; exit ;;
+   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
   esac
 done
 echo "Wilt u de machine updaten voor de installatie van $webserver"
