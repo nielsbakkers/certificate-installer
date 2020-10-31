@@ -27,16 +27,15 @@ do
 done
 
 read -p $'Wilt u de machine updaten voor de installatie van "$webserver" \n 1) Ja \n 2) Nee \n' update
-#read -p "Wilt u de machine updaten voor de installatie van $webserver"$' \n' "1) Ja"' \n' "2) Nee"' \n' update
 
 while true
 do
   case $update in
-   [yY1]* ) #echo "Oke de server wordt geupdate voordat de installatie begint"
+   [yY1]* ) 
 	   update=yes
 	   echo "$devide"
 	   break;;
-   [nN2]* ) #echo "Oke de server wordt niet geupdate voordat de installatie begint"
+   [nN2]* ) 
            update=no
 	   echo "$devide"
            break;;
@@ -45,7 +44,7 @@ do
   esac
 done
 
-read -p "Voor welk domein moet het certificaat geinstalleerd worden? Voer de domeinnaam in:"$' \n' domainname
+read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \n Bijvoorbeeld: example.com \n Voer de domeinnaam in: ' domainname
 
 while true
 do
