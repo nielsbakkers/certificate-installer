@@ -26,7 +26,7 @@ do
   esac
 done
 
-read -p "Wilt u de machine updaten voor de installatie van $webserver"$' \n 1) Ja \n 2) Nee \n' update
+read -p "Wilt u de machine updaten voor de installatie van $webserver"$' \n' "1) Ja"' \n' "2) Nee"' \n' update
 
 while true
 do
