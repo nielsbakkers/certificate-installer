@@ -150,8 +150,8 @@ then
 	sudo cp $domainname.key /etc/ssl/private/$domainname.key
 	
 	perl -p -i -e 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-	#perl -p -i -e 's/listen \\[\\:\\:\\]\\:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
-	sed -i "23i listen 443 ssl http2;" "/etc/nginx/sites-available/default"
+	perl -p -i -e 's/listen \[\:\:\]\:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
+	#sed -i "23i listen 443 ssl http2;" "/etc/nginx/sites-available/default"
 	sed -i "24i server_name \\${domainname};" "/etc/nginx/sites-available/default"
 	sed -i "25i ssl_certificate /etc/ssl/certs/\\${domainname}.crt;" "/etc/nginx/sites-available/default"
 	sed -i "26i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
