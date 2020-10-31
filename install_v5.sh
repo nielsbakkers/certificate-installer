@@ -6,7 +6,7 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
-read -p $'Welke webserver wilt u installeren? \n 1) Apache \n 2) Nginx\n' webserver 
+read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n' webserver 
 
 while true
 do
@@ -26,7 +26,7 @@ do
   esac
 done
 echo "Wilt u de machine updaten voor de installatie van $webserver"
-read -p $' \n 1) Ja \n 2) Nee \n' update
+read -p $'1) Ja \n2) Nee \n' update
 #read -p $'Wilt u de machine updaten voor de installatie van '"$webserver"' \n 1) Ja \n 2) Nee \n' update
 
 while true
@@ -34,10 +34,12 @@ do
   case $update in
    [yY1]* ) 
 	   update=yes
+	   updatechoice=wel
 	   echo "$devide"
 	   break;;
    [nN2]* ) 
            update=no
+	   updatechoice=niet
 	   echo "$devide"
            break;;
 
@@ -45,7 +47,7 @@ do
   esac
 done
 
-read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \n Bijvoorbeeld: example.com \n Voer de domeinnaam in: ' domainname
+read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \nBijvoorbeeld: example.com \nVoer de domeinnaam in: ' domainname
 
 while true
 do
@@ -57,7 +59,7 @@ do
   esac
 done
 
-read -p "De volgende onderdelen worden gedaan:"$' \n'"$webserver wordt geinstalleerd"$' \n'"De server wordt $update geupdate"$' \n'"Er wordt een certificaat voor de domainame $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord?"$' \n' agree
+read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domainame $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n)"$' \n' agree
 
 while true
 do
