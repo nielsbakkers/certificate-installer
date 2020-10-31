@@ -86,56 +86,65 @@ fi
 
 sudo apt-get install $webinstall -y
 
-openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $DIR/cakey.pem
+if [ $webserver == "Apache" ]
+then
+	openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $DIR/cakey.pem
 
-openssl req -new -x509 -key $DIR/cakey.pem -out $DIR/cacert.pem -days 1095 -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname"
+	openssl req -new -x509 -key $DIR/cakey.pem -out $DIR/cacert.pem -days 1095 -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname"
 
-cd
-mkdir "$dirL"
-mkdir "$dirL/certs"
-mkdir "$dirL/crl"
-mkdir "$dirL/newcerts"
-mkdir "$dirL/private"
-touch "$dirL/index.txt"
-echo 02 > "$dirL/serial"
-mv "$DIR/cacert.pem" "$dirL/"
-mv "$DIR/cakey.pem" "$dirL/private"
+	cd
+	mkdir "$dirL"
+	mkdir "$dirL/certs"
+	mkdir "$dirL/crl"
+	mkdir "$dirL/newcerts"
+	mkdir "$dirL/private"
+	touch "$dirL/index.txt"
+	echo 02 > "$dirL/serial"
+	mv "$DIR/cacert.pem" "$dirL/"
+	mv "$DIR/cakey.pem" "$dirL/private"
 
-export domainname
-export dirL
-export dir
+	export domainname
+	export dirL
+	export dir
 
-perl -p -i -e 's/countryName		= optional/countryName		= match/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/stateOrProvinceName	= match/stateOrProvinceName	= optional/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/organizationName	= match/organizationName	= optional/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/organizationalUnitName = match/organizationalUnitName  = optional/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/emailAddress           = match/emailAddress            = optional/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/RANDFILE/#RANDFILE/g' /usr/lib/ssl/openssl.cnf
-perl -p -i -e 's/\.\/demoCA/$ENV{dirL}/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/countryName		= optional/countryName		= match/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/stateOrProvinceName	= match/stateOrProvinceName	= optional/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/organizationName	= match/organizationName	= optional/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/organizationalUnitName = match/organizationalUnitName  = optional/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/emailAddress           = match/emailAddress            = optional/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/RANDFILE/#RANDFILE/g' /usr/lib/ssl/openssl.cnf
+	perl -p -i -e 's/\.\/demoCA/$ENV{dirL}/g' /usr/lib/ssl/openssl.cnf
 
-openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $dirL/privkey-$domainname.pem
-openssl req -new -key $dirL/privkey-$domainname.pem -out $dirL/certreq-$domainname.csr -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname" -batch
-openssl ca -batch -in $dirL/certreq-$domainname.csr -out $dirL/cert-$domainname.pem 
+	openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $dirL/privkey-$domainname.pem
+	openssl req -new -key $dirL/privkey-$domainname.pem -out $dirL/certreq-$domainname.csr -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname" -batch
+	openssl ca -batch -in $dirL/certreq-$domainname.csr -out $dirL/cert-$domainname.pem 
 
-cp $dirL/cacert.pem $dirL/cert-ourca.crt
-openssl verify -CAfile $dirL/cert-ourca.crt $dirL/cert-$domainname.pem
+	cp $dirL/cacert.pem $dirL/cert-ourca.crt
+	openssl verify -CAfile $dirL/cert-ourca.crt $dirL/cert-$domainname.pem
 
-sudo cp $dirL/cert-$domainname.pem /etc/ssl/certs/
-sudo cp $dirL/cert-ourca.crt /etc/ssl/certs/
-sudo cp $dirL/privkey-$domainname.pem /etc/ssl/private/
+	sudo cp $dirL/cert-$domainname.pem /etc/ssl/certs/
+	sudo cp $dirL/cert-ourca.crt /etc/ssl/certs/
+	sudo cp $dirL/privkey-$domainname.pem /etc/ssl/private/
 
-sed -i "4i                ServerName \\${domainname}:443" "/etc/apache2/sites-available/default-ssl.conf"
+	sed -i "4i                ServerName \\${domainname}:443" "/etc/apache2/sites-available/default-ssl.conf"
 
-perl -p -i -e 's/SSLCertificateFile	\/etc\/ssl\/certs\/ssl-cert-snakeoil.pem/SSLCertificateFile    \/etc\/ssl\/certs\/cert-$ENV{domainname}.pem/g' /etc/apache2/sites-available/default-ssl.conf
-perl -p -i -e 's/SSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/SSLCertificateKeyFile \/etc\/ssl\/private\/privkey-$ENV{domainname}.pem/g' /etc/apache2/sites-available/default-ssl.conf
+	perl -p -i -e 's/SSLCertificateFile	\/etc\/ssl\/certs\/ssl-cert-snakeoil.pem/SSLCertificateFile    \/etc\/ssl\/certs\/cert-$ENV{domainname}.pem/g' /etc/apache2/sites-available/default-ssl.conf
+	perl -p -i -e 's/SSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/SSLCertificateKeyFile \/etc\/ssl\/private\/privkey-$ENV{domainname}.pem/g' /etc/apache2/sites-available/default-ssl.conf
 
-awk 'NR==35{$0="                SSLCACertificateFile /etc/ssl/certs/cert-ourca.crt"$0}1' /etc/apache2/sites-available/default-ssl.conf > $dirL/temp.conf
-cp $dirL/temp.conf /etc/apache2/sites-available/default-ssl.conf
-rm -R $dirL/temp.conf
+	awk 'NR==35{$0="                SSLCACertificateFile /etc/ssl/certs/cert-ourca.crt"$0}1' /etc/apache2/sites-available/default-ssl.conf > $dirL/temp.conf
+	cp $dirL/temp.conf /etc/apache2/sites-available/default-ssl.conf
+	rm -R $dirL/temp.conf
 
-sed -i "13i                Redirect '/' 'https://\\${ip}'" "/etc/apache2/sites-available/000-default.conf"
+	sed -i "13i                Redirect '/' 'https://\\${ip}'" "/etc/apache2/sites-available/000-default.conf"
 
-sudo a2enmod ssl
-sudo a2ensite default-ssl
-sudo systemctl reload apache2
-sudo systemctl start apache2
+	sudo a2enmod ssl
+	sudo a2ensite default-ssl
+	sudo systemctl reload apache2
+	sudo systemctl start apache2
+fi
+
+if [ $webserver == "Nginx" ]
+then
+	echo "nginx"
+
+fi
