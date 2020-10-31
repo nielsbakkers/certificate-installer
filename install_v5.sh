@@ -32,12 +32,12 @@ read -p $'1) Ja \n2) Nee \n' update
 while true
 do
   case $update in
-   [yY1]* ) 
+   [y/Y/yes/Yes] ) 
 	   update=yes
 	   updatechoice=wel
 	   echo "$devide"
 	   break;;
-   [nN2]* ) 
+   [n/N/no/No] ) 
            update=no
 	   updatechoice=niet
 	   echo "$devide"
@@ -64,11 +64,11 @@ read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt gein
 while true
 do
   case $agree in
-   [yY]* ) #echo "You chose Yes"
+   [y/Y/yes/Yes] ) #echo "You chose Yes"
 	   agree=Yes
 	   echo "$devide"
 	   break;;
-   [nN]* ) #echo "You chose No"
+   [n/N/no/No] ) #echo "You chose No"
 	   agree=No
 	   echo "$devide"
 	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
