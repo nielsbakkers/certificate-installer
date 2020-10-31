@@ -132,7 +132,7 @@ rm -R $dirL/temp.conf
 sudo a2enmod ssl
 sudo a2ensite default-ssl
 sudo systemctl reload apache2
-
+sudo systemctl start apache2
 
 
 
