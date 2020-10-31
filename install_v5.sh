@@ -6,19 +6,17 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
-echo "$devide"
-
-read -p $'Welke webserver wilt u installeren? Apache or Nginx\n' webserver 
+read -p $'Welke webserver wilt u installeren? \n 1) Apache \n 2) Nginx\n' webserver 
 
 while true
 do
   case $webserver in
-   [aA]* ) #echo "You chose Apache"
+   [aA1]* ) #echo "You chose Apache"
 	   webserver=Apache
 	   webinstall=apache2
 	   echo "$devide"
 	   break;;
-   [nN]* ) #echo "You chose Nginx"
+   [nN2]* ) #echo "You chose Nginx"
 	   webserver=Nginx
 	   webinstall=nginx 
 	   echo "$devide"
