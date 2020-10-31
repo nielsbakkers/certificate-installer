@@ -71,7 +71,8 @@ do
    [nN]* ) #echo "You chose No"
 	   agree=No
 	   echo "$devide"
-           break;;
+	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
+	   exit;;
 
    * )     echo "Kies een juiste waarde"; exit ;;
   esac
