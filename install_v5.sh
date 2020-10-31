@@ -43,7 +43,7 @@ do
 	   echo "$devide"
            break;;
 
-   * )     echo "Kies een juiste waarde"; exit ;;
+   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
   esac
 done
 
@@ -55,7 +55,7 @@ do
    *.com | *.nl | *.nu | *.local | *.technology | *.localhost) #echo "juiste domainname"
 	   echo "$devide"
            break;;
-   * )     echo "Kies een juiste domainname"$' \n'; exit ;;
+   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."$' \n'; exit ;;
   esac
 done
 
@@ -74,7 +74,7 @@ do
 	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
 	   exit;;
 
-   * )     echo "Kies een juiste waarde"; exit ;;
+   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
   esac
 done
 
