@@ -70,7 +70,7 @@ do
   esac
 done
 
-read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n) " agree
+read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n\n'"Gaat u hier mee akkoord? (y/n) " agree
 
 while true
 do
