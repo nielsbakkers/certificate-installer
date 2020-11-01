@@ -24,12 +24,12 @@ do
 	   echo "$devide"
            break;;
    3 ) 
-	   webserver=Geen Apache
+	   webserver=Apache
 	   webinstall=none 
 	   echo "$devide"
            break;;
    4 ) 
-	   webserver=Geen Nginx
+	   webserver=Nginx
 	   webinstall=none 
 	   echo "$devide"
            break;;
@@ -70,6 +70,10 @@ do
   esac
 done
 
+if [ $webinstall == "none" ]
+then 
+	read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) De server wordt $updatechoice geupdate"$' \n'"2) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n\n'"Gaat u hier mee akkoord? (y/n) " agree
+fi
 read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n\n'"Gaat u hier mee akkoord? (y/n) " agree
 
 while true
@@ -162,15 +166,29 @@ then
 	sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $domainname.key -out $domainname.crt -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname"
 	sudo cp $domainname.crt /etc/ssl/certs/$domainname.crt
 	sudo cp $domainname.key /etc/ssl/private/$domainname.key
+
+	sed -i "20i server {" "/etc/nginx/sites-available/default"
+	sed -i "21i listen 443 ssl;" "/etc/nginx/sites-available/default"
+	sed -i "22i server_name \\${domainname};" "/etc/nginx/sites-available/default"
+	sed -i "23i ssl_certificate /etc/ssl/certs/\\${domainname}.crt;" "/etc/nginx/sites-available/default"
+	sed -i "24i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
+	sed -i "25i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
+	sed -i "26i location / {" "/etc/nginx/sites-available/default"
+	sed -i "27i try_files \\${ip} \\${ip}/ -040;" "/etc/nginx/sites-available/default"
+	sed -i "28i }" "/etc/nginx/sites-available/default"
+	sed -i "29i }" "/etc/nginx/sites-available/default"
+
+
 	
-	perl -p -i -e 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-	perl -p -i -e 's/listen \[\:\:\]\:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
+	
+	#perl -p -i -e 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+	#perl -p -i -e 's/listen \[\:\:\]\:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
 	#sed -i "23i listen 443 ssl http2;" "/etc/nginx/sites-available/default"
-	sed -i "24i server_name \\${domainname};" "/etc/nginx/sites-available/default"
-	sed -i "25i ssl_certificate /etc/ssl/certs/\\${domainname}.crt;" "/etc/nginx/sites-available/default"
-	sed -i "26i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
-	sed -i "27i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
-	sed -i "28i return 301 https://\\${ip}$request_uri;" "/etc/nginx/sites-available/default"
+	#sed -i "24i server_name \\${domainname};" "/etc/nginx/sites-available/default"
+	#sed -i "25i ssl_certificate /etc/ssl/certs/\\${domainname}.crt;" "/etc/nginx/sites-available/default"
+	#sed -i "26i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
+	#sed -i "27i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
+	#sed -i "28i return 301 https://\\${ip}$request_uri;" "/etc/nginx/sites-available/default"
 	
 	sudo service nginx reload
 	sudo service nginx start
