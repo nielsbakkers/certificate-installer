@@ -6,7 +6,7 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
-read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n \n3) Geen Apache is al geinstalleerd \n4) Geen Nginx is al geinstalleerd \n' webserver 
+read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx \n3) Geen Apache is al geinstalleerd \n4) Geen Nginx is al geinstalleerd \n' webserver 
 
 while true
 do
