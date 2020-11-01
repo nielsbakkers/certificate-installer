@@ -175,7 +175,7 @@ then
 	sed -i "24i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
 	sed -i "25i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
 	sed -i "26i location / {" "/etc/nginx/sites-available/default"
-	sed -i "27i try_files \\${ip} \\${ip}/ -040;" "/etc/nginx/sites-available/default"
+	sed -i "27i try_files \\$uri \\$uri/ =040;" "/etc/nginx/sites-available/default"
 	sed -i "28i }" "/etc/nginx/sites-available/default"
 	sed -i "29i }" "/etc/nginx/sites-available/default"
 
