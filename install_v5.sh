@@ -63,23 +63,23 @@ read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \nBijvoor
 while true
 do
   case $domainname in
-   *.com | *.nl | *.nu | *.local | *.technology | *.localhost) #echo "juiste domainname"
+   *.com | *.nl | *.nu | *.local | *.technology | *.localhost) 
 	   echo "$devide"
            break;;
    * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."$' \n'; exit ;;
   esac
 done
 
-read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n)"$' \n' agree
+read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n) " agree
 
 while true
 do
   case $agree in
-   y/Y/yes/Yes ) #echo "You chose Yes"
+   y/Y/yes/Yes ) 
 	   agree=Yes
 	   echo "$devide"
 	   break;;
-   n/N/no/No ) #echo "You chose No"
+   n/N/no/No ) 
 	   agree=No
 	   echo "$devide"
 	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
