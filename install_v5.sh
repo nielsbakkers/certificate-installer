@@ -37,26 +37,30 @@ do
    * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
   esac
 done
-echo "Wilt u de machine updaten voor de installatie van $webserver"
-read -p $'1) Ja \n2) Nee \n\nKeuze: ' update
 
-while true
-do
-  case $update in
-   1 ) 
-	   update=yes
-	   updatechoice=wel
-	   echo "$devide"
-	   break;;
-   2 ) 
-           update=no
-	   updatechoice=niet
-	   echo "$devide"
-           break;;
+if [ $webinstall != "none"]
+then 
+	echo "Wilt u de machine updaten voor de installatie van $webserver"
+	read -p $'1) Ja \n2) Nee \n\nKeuze: ' update
 
-   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
-  esac
-done
+	while true
+	do
+	  case $update in
+	   1 ) 
+		   update=yes
+		   updatechoice=wel
+		   echo "$devide"
+		   break;;
+	   2 ) 
+		   update=no
+		   updatechoice=niet
+		   echo "$devide"
+		   break;;
+
+	   * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."; exit ;;
+	  esac
+	done
+fi
 
 read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \nBijvoorbeeld: example.com \nVoer de domeinnaam in: ' domainname
 
