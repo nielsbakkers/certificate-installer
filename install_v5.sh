@@ -24,12 +24,12 @@ do
 	   echo "$devide"
            break;;
    3 ) 
-	   webserver=geenApache
+	   webserver=Geen Apache
 	   webinstall=none 
 	   echo "$devide"
            break;;
    4 ) 
-	   webserver=geenNginx
+	   webserver=Geen Nginx
 	   webinstall=none 
 	   echo "$devide"
            break;;
@@ -70,7 +70,7 @@ do
   esac
 done
 
-read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domainame $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n)"$' \n' agree
+read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt geinstalleerd"$' \n'"2) De server wordt $updatechoice geupdate"$' \n'"3) Er wordt een certificaat voor de domeinnaam $domainname geinstalleerd"$' \n'"Gaat u hier mee akkoord? (y/n)"$' \n' agree
 
 while true
 do
