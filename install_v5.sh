@@ -6,27 +6,27 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
-read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx \n3) Geen Apache is al geinstalleerd \n4) Geen Nginx is al geinstalleerd \n' webserver 
+read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx \n3) Geen, Apache is al geinstalleerd \n4) Geen, Nginx is al geinstalleerd \n' webserver 
 
 while true
 do
   case $webserver in
-   a/A/Apache/apache/1 ) #echo "You chose Apache"
+   1 ) 
 	   webserver=Apache
 	   webinstall=apache2
 	   echo "$devide"
 	   break;;
-   n/N/Nginx/nginx/2 ) #echo "You chose Nginx"
+   2 ) 
 	   webserver=Nginx
 	   webinstall=nginx 
 	   echo "$devide"
            break;;
-   gApache/gapache/geenApache/geenapache/3 ) #echo "You chose Nginx"
+   3 ) 
 	   webserver=geenApache
 	   webinstall=none 
 	   echo "$devide"
            break;;
-   gNginx/gnginx/geenNginx/geennginx/4 ) #echo "You chose Nginx"
+   4 ) 
 	   webserver=geenNginx
 	   webinstall=none 
 	   echo "$devide"
@@ -37,17 +37,16 @@ do
 done
 echo "Wilt u de machine updaten voor de installatie van $webserver"
 read -p $'1) Ja \n2) Nee \n' update
-#read -p $'Wilt u de machine updaten voor de installatie van '"$webserver"' \n 1) Ja \n 2) Nee \n' update
 
 while true
 do
   case $update in
-   y/Y/yes/Yes/1 ) 
+   1 ) 
 	   update=yes
 	   updatechoice=wel
 	   echo "$devide"
 	   break;;
-   n/N/no/No/2 ) 
+   2 ) 
            update=no
 	   updatechoice=niet
 	   echo "$devide"
