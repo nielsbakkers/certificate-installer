@@ -75,11 +75,11 @@ read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt gein
 while true
 do
   case $agree in
-   y/Y/yes/Yes ) 
+   y ) 
 	   agree=Yes
 	   echo "$devide"
 	   break;;
-   n/N/no/No ) 
+   n ) 
 	   agree=No
 	   echo "$devide"
 	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
