@@ -8,7 +8,7 @@ ip="$(hostname -I)"
 
 echo "$devide"
 
-read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx \n3) Geen, Apache is al geinstalleerd \n4) Geen, Nginx is al geinstalleerd \n' webserver 
+read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx \n3) Geen, Apache is al geinstalleerd \n4) Geen, Nginx is al geinstalleerd \n\nKeuze: ' webserver 
 
 while true
 do
@@ -38,7 +38,7 @@ do
   esac
 done
 echo "Wilt u de machine updaten voor de installatie van $webserver"
-read -p $'1) Ja \n2) Nee \n' update
+read -p $'1) Ja \n2) Nee \n\nKeuze: ' update
 
 while true
 do
