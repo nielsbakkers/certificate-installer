@@ -176,21 +176,9 @@ then
 	sed -i "24i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
 	sed -i "25i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
 	sed -i "26i location / {" "/etc/nginx/sites-available/default"
-	sed -i "27i try_files \\$uri \\$uri/ =040;" "/etc/nginx/sites-available/default"
+	sed -i "27i try_files \\\$uri \\\$uri/ =040;" "/etc/nginx/sites-available/default"
 	sed -i "28i }" "/etc/nginx/sites-available/default"
 	sed -i "29i }" "/etc/nginx/sites-available/default"
-
-
-	
-	
-	#perl -p -i -e 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-	#perl -p -i -e 's/listen \[\:\:\]\:80 default_server;/listen 443 ssl http2;/g' /etc/nginx/sites-available/default
-	#sed -i "23i listen 443 ssl http2;" "/etc/nginx/sites-available/default"
-	#sed -i "24i server_name \\${domainname};" "/etc/nginx/sites-available/default"
-	#sed -i "25i ssl_certificate /etc/ssl/certs/\\${domainname}.crt;" "/etc/nginx/sites-available/default"
-	#sed -i "26i ssl_certificate_key /etc/ssl/private/\\${domainname}.key;" "/etc/nginx/sites-available/default"
-	#sed -i "27i ssl_protocols TLSv1.2 TLSv1.1 TLSv1;" "/etc/nginx/sites-available/default"
-	#sed -i "28i return 301 https://\\${ip}$request_uri;" "/etc/nginx/sites-available/default"
 	
 	sudo service nginx reload
 	sudo service nginx start
