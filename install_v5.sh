@@ -6,7 +6,7 @@ dir=dirCA
 devide=$' \n'"---------------------------------------------------------------------"$'\n'
 ip="$(hostname -I)"
 
-read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n' webserver 
+read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n \n3) Geen Apache is al geinstalleerd \n4) Geen Nginx is al geinstalleerd \n' webserver 
 
 while true
 do
@@ -19,6 +19,16 @@ do
    n/N/Nginx/nginx/2 ) #echo "You chose Nginx"
 	   webserver=Nginx
 	   webinstall=nginx 
+	   echo "$devide"
+           break;;
+   gApache/gapache/geenApache/geenapache/3 ) #echo "You chose Nginx"
+	   webserver=geenApache
+	   webinstall=none 
+	   echo "$devide"
+           break;;
+   gNginx/gnginx/geenNginx/geennginx/4 ) #echo "You chose Nginx"
+	   webserver=geenNginx
+	   webinstall=none 
 	   echo "$devide"
            break;;
 
@@ -84,7 +94,10 @@ then
 	sudo apt-get update
 fi
 
-sudo apt-get install $webinstall -y
+if [[ $webinstall == "apache2" || $webinstall == "nginx" ]]
+then
+	sudo apt-get install $webinstall -y
+fi
 
 if [ $webserver == "Apache" ]
 then
