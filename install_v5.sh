@@ -11,12 +11,12 @@ read -p $'Welke webserver wilt u installeren? \n1) Apache \n2) Nginx\n' webserve
 while true
 do
   case $webserver in
-   [a/A/Apache/apache/1] ) #echo "You chose Apache"
+   a/A/Apache/apache/1 ) #echo "You chose Apache"
 	   webserver=Apache
 	   webinstall=apache2
 	   echo "$devide"
 	   break;;
-   [n/N/Nginx/nginx/2] ) #echo "You chose Nginx"
+   n/N/Nginx/nginx/2 ) #echo "You chose Nginx"
 	   webserver=Nginx
 	   webinstall=nginx 
 	   echo "$devide"
@@ -32,12 +32,12 @@ read -p $'1) Ja \n2) Nee \n' update
 while true
 do
   case $update in
-   [y/Y/yes/Yes/1] ) 
+   y/Y/yes/Yes/1 ) 
 	   update=yes
 	   updatechoice=wel
 	   echo "$devide"
 	   break;;
-   [n/N/no/No/2] ) 
+   n/N/no/No/2 ) 
            update=no
 	   updatechoice=niet
 	   echo "$devide"
@@ -64,11 +64,11 @@ read -p "De volgende acties worden uitgevoerd:"$' \n\n'"1) $webserver wordt gein
 while true
 do
   case $agree in
-   [y/Y/yes/Yes] ) #echo "You chose Yes"
+   y/Y/yes/Yes ) #echo "You chose Yes"
 	   agree=Yes
 	   echo "$devide"
 	   break;;
-   [n/N/no/No] ) #echo "You chose No"
+   n/N/no/No ) #echo "You chose No"
 	   agree=No
 	   echo "$devide"
 	   echo "Je ging niet akkoord met de acties die uitgevoerd werden. Start het programma opnieuw."
