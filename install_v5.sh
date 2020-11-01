@@ -63,7 +63,7 @@ read -p $'Voor welk domein moet het ceritificaat geinstalleerd worden? \nBijvoor
 while true
 do
   case $domainname in
-   *.com | *.nl | *.nu | *.local | *.technology | *.localhost) 
+   *.com | *.nl | *.nu | *.local | *.technology | *.localhost | *.lan) 
 	   echo "$devide"
            break;;
    * )     echo "Dit is geen geldige waarde! Start het programma opnieuw en voer een geldige waarde in."$' \n'; exit ;;
