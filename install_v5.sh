@@ -38,7 +38,7 @@ do
   esac
 done
 
-if [ $webinstall != "none"]
+if [ $webinstall != "none" ]
 then 
 	echo "Wilt u de machine updaten voor de installatie van $webserver"
 	read -p $'1) Ja \n2) Nee \n\nKeuze: ' update
