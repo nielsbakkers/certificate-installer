@@ -114,7 +114,7 @@ if [ $webserver == "Apache" ]
 then
 	openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $DIR/cakey.pem
 
-	openssl req -new -x509 -key $DIR/cakey.pem -out $DIR/cacert.pem -days 1095 -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname"
+	openssl req -new -x509 -key $DIR/cakey.pem -out $DIR/cacert.pem -days 1095 -subj "/C=NL/ST=DenHaag/L=Amsterdam/O=Example/OU=Example/CN=$domainname"
 
 	cd
 	mkdir "$dirL"
@@ -140,7 +140,7 @@ then
 	perl -p -i -e 's/\.\/demoCA/$ENV{dirL}/g' /usr/lib/ssl/openssl.cnf
 
 	openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537 -out $dirL/privkey-$domainname.pem
-	openssl req -new -key $dirL/privkey-$domainname.pem -out $dirL/certreq-$domainname.csr -subj "/C=NL/ST=Noord-brabant/L=Eindhoven/O=nbakkers/OU=nbakkers/CN=$domainname" -batch
+	openssl req -new -key $dirL/privkey-$domainname.pem -out $dirL/certreq-$domainname.csr -subj "/C=NL/ST=DenHaag/L=Amsterdam/O=Example/OU=Example/CN=$domainname" -batch
 	openssl ca -batch -in $dirL/certreq-$domainname.csr -out $dirL/cert-$domainname.pem 
 
 	cp $dirL/cacert.pem $dirL/cert-ourca.crt
